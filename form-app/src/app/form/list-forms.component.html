@@ -1,0 +1,35 @@
+<div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <p class="text-center"><button type="button"
+                                class="btn btn-danger mb-3"> All Forms </button></p>
+                    </div>
+                    <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="searchTerm" (input)="Search()"
+                                placeholder="Search Forms by Form Name" />
+                        </div>
+                    <table class="table table-hover" id="form-table">
+                        <thead>
+                            <tr>
+                                <th>Form Name</th>
+                                <th>Description</th>
+                                <th>Created Time</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let form of FormArray">
+                                <td>{{form.name}}</td>
+                                <td>{{form.description}}</td>
+                                <td>{{form.createdAt}}</td>
+                                <td><p class="text-center"><button type="button" routerLink="/forms/{{form.name}}"
+                                    class="btn btn-danger mb-3"> Form Details </button></p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

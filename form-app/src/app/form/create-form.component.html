@@ -1,0 +1,90 @@
+<form [formGroup]="FormCreateForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Create Form</h3>
+    </div>
+    <div class="panel-body">
+      <div class="form-group"
+        [ngClass]="{'has-error': ((FormCreateForm.get('name').touched ||FormCreateForm.get('name').dirty) &&FormCreateForm.get('name').errors)}">
+        <label class="col-sm-2 control-label" for="name">Form Name</label>
+        <div class="col-sm-8">
+          <input id="name" formControlName="name" type="text" class="form-control">
+          <span class="help-block"
+            *ngIf="((FormCreateForm.get('name').touched ||FormCreateForm.get('name').dirty) &&FormCreateForm.get('name').errors)">
+            <span *ngIf="FormCreateForm.get('name').errors.required">
+              Form Name is required
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group"
+        [ngClass]="{'has-error': ((FormCreateForm.get('description').touched ||FormCreateForm.get('description').dirty) &&FormCreateForm.get('description').errors)}">
+        <label class="col-sm-2 control-label" for="description">Description</label>
+        <div class="col-sm-8">
+          <input id="description" formControlName="description" type="text" class="form-control">
+          <span class="help-block"
+            *ngIf="((FormCreateForm.get('description').touched ||FormCreateForm.get('description').dirty) &&FormCreateForm.get('description').errors)">
+            <span *ngIf="FormCreateForm.get('description').errors.required">
+              Form Description is required
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="well">
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-4">
+            <button type="button" class="btn btn-primary" (click)="addFieldButtonClick()"  [disabled]="FormCreateForm.get('fields').invalid">
+              Add New Field
+            </button>
+          </div>
+        </div>
+        <div formArrayName="fields" *ngFor="let field of FormCreateForm.get('fields').controls;let i = index">
+            <hr style="border:2px solid #337ab7;" *ngIf="i>0">
+          <div [formGroupName]="i">
+            <div class="form-group" [ngClass]="{'has-error':field.get('name').invalid && field.get('name').touched}">
+              <label class="col-md-2 control-label" [attr.for]="'name'+i">Field Name</label>
+              <input [id]="'name'+i" type="text" formControlName="name">
+              <span class="help-block" *ngIf="field.get('name').errors?.required &&field.get('name').touched">
+                Field Name is required
+              </span>
+            </div>
+            <div class="col-sm-12" *ngIf="FormCreateForm.get('fields').length>1">
+                <button type="button" class="btn btn-danger btn-sm pull-right"
+                        title="Delete Field" (click)="deleteFieldButtonClick(i)">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+              </div>
+            <div class="form-group" [ngClass]="{'has-error':field.get('required').invalid && field.get('required').touched}">
+              <label [attr.for]="'required'+i" class="col-md-2 control-label">is Required?</label>
+              <div class="col-md-8">
+                <label class="radio-inline">
+                  <input [id]="'required'+i" type="radio" value=true formControlName="required">True
+                </label>
+                <label class="radio-inline">
+                  <input [id]="'required'+i" type="radio" value=false formControlName="required">False
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-2 control-label">Data Type</label>
+              <div class="col-md-8">
+                <label class="radio-inline">
+                  <input id="dataType" type="radio" value="NUMBER" formControlName="dataType">Number
+                </label>
+                <label class="radio-inline">
+                  <input id="dataType" type="radio" value="STRING" formControlName="dataType">String
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-footer">
+        <button class="btn btn-primary" type="submit">Save</button>
+      </div>
+    </div>
+  </div>
+</form>

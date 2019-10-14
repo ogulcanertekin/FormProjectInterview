@@ -1,0 +1,29 @@
+      <div class="well">
+            <div class="form-group" [ngClass]="{'has-error':field.get('name').invalid && field.get('name').touched}">
+              <label class="col-md-2 control-label" for="name">Field Name</label>
+              <input [id]="name" type="text">
+            </div>
+            <div class="form-group">
+              <label for="required" class="col-md-2 control-label">is Required?</label>
+              <div class="col-md-8">
+                <label class="radio-inline">
+                  <input *ngIf="formValue.required===true" id="required" type="radio" value={{formValue.required}}>True
+                </label>
+                <label class="radio-inline">
+                </label>
+                <input *ngIf="formValue.required===false" id="required" type="radio" value={{formValue.required}}>False
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-2 control-label">Data Type</label>
+              <div class="col-md-8">
+                <label class="radio-inline">
+                  <input *ngIf="formValue.dataType==='NUMBER'" id="dataType" type="radio" value="NUMBER">Number
+                </label>
+                <label class="radio-inline">
+                  <input *ngIf="formValue.dataType==='STRING'" id="dataType" type="radio" value="STRING">String
+                </label>
+              </div>
+            </div>
+      </div>
